@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MvcStartApp.Models.Db;
 using MvcStartApp.Repository;
 using System.Threading.Tasks;
@@ -7,11 +8,12 @@ namespace MvcStartApp.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly IBlogRepository _repo;
-
-        public UsersController(IBlogRepository repo)
+        private readonly ILogger<UsersController> _logger;
+        private IBlogRepository _repo;
+        public UsersController(IBlogRepository repo, ILogger<UsersController> logger)
         {
             _repo = repo;
+            _logger = logger;
         }
 
         public async Task<IActionResult> Index()
